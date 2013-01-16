@@ -24,18 +24,6 @@ class AnnotationDispatcher extends DispatcherFilter {
             $event = new $eventClass($this->annotationReader, $event);
             $event->manages();
         }
-
-        /*$reflectionClass = $this->getReflectionClass(
-            $this->getControllerName($event)
-        );
-        $reflectionMethod = $this->getReflectionMethod(
-            $reflectionClass,
-            $this->getActionName($event)
-        );
-
-        $methodAnnotations = $this->annotationReader->getMethodAnnotations($reflectionMethod);
-        
-        $this->callManagers($methodAnnotations);*/
     }
 
 }
