@@ -1,5 +1,6 @@
 <?php
 App::uses('DispatcherFilter', 'Routing');
+App::uses('CakeEventManager', 'Event');
 
 use Doctrine\Common\Annotations\AnnotationReader;
 
@@ -14,7 +15,20 @@ class AnnotationDispatcher extends DispatcherFilter {
     }
 
     public function beforeDispatch($event) {
-        $events = EventEmitter::getEvents('before');
+        $self = $this;
+
+        $self->broadcast('Dispatcher.before', $event);
+
+        CakeEventManager::instance()->attach(
+            function ($event) use ($self) {
+                $self->broadcast('Controller.initialize', $event);
+            }, 
+            'Controller.initialize'
+        );
+    }
+
+    public function broadcast($eventName, $event) {
+        $events = EventEmitter::getEvents($eventName);
 
         $loader = function ($className, $location) {
             App::uses($className, $location);

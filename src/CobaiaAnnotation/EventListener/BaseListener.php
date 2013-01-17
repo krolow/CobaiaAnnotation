@@ -5,7 +5,6 @@ use Doctrine\Common\Annotations\AnnotationReader;
 use ReflectionClass;
 use ReflectionMethod;
 use App;
-use Inflector;
 
 abstract class BaseListener {
 
@@ -32,18 +31,6 @@ abstract class BaseListener {
         }
 
         return new ReflectionMethod($class, $method);
-    }
-
-    protected function getControllerName($event = null) {
-        $event = $event ?: $this->event;
-        return Inflector::camelize(
-            $event->data['request']->params['controller']
-        ) . 'Controller';
-    }
-
-    protected function getActionName($event = null) {
-        $event = $event ?: $this->event;
-        return $event->data['request']->params['action'];
     }
 
 }
