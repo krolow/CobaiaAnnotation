@@ -1,5 +1,5 @@
 {
-    "name": "cobaia/cobaia_annotation",
+    "name": "cobaia/cobaia-annotation",
     "description": "CakePHP Debug Kit",
     "type": "cakephp-plugin",
     "keywords": ["cakephp", "annotation", "meta"],
