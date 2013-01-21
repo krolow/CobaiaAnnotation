@@ -30,13 +30,9 @@ class AnnotationDispatcher extends DispatcherFilter {
     public function broadcast($eventName, $event) {
         $events = EventEmitter::getEvents($eventName);
 
-        $loader = function ($className, $location) {
-            App::uses($className, $location);
-        };
-
         foreach ($events as $eventClass) {
-            $event = new $eventClass($this->annotationReader, $event);
-            $event->manages();
+            $handler = new $eventClass($this->annotationReader, $event);
+            $handler->manages();
         }
     }
 

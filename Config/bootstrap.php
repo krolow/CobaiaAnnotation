@@ -18,3 +18,7 @@ EventEmitter::addEvent(
     'Controller.initialize',
     'CobaiaAnnotation\\EventListener\\ViewHandlerListener'
 );
+EventEmitter::addEvent(
+    'Controller.initialize',
+    'CobaiaAnnotation\\EventListener\\LoadListener'
+);
