@@ -1,6 +1,6 @@
 {
     "name": "cobaia/cobaia-annotation",
-    "description": "CakePHP Debug Kit",
+    "description": "CakePHP Plugin with a collection of Annotations to use",
     "type": "cakephp-plugin",
     "keywords": ["cakephp", "annotation", "meta"],
     "homepage": "https://github.com/krolow/CobaiaAnnotation",
