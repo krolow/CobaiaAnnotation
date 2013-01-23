@@ -6,10 +6,9 @@ Annotations in CakePHP.
 ## Why?
 
 - Because Annotations are cool!
-- Because I like
+- Because We like (or at least I like)
 - Because no make sense repeate over and over the same code in PHP
-- PHP code should be write when is needed to be unique
-- PHP code array to configure is sux
+- Use PHP array to configure is sux
 - Metadata and Metaprogramming are cool!
 
 ## Installing
