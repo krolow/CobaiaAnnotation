@@ -1,11 +1,11 @@
 <?php
 namespace CobaiaAnnotation\EventListener;
 
-use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\Reader;
 
 interface AnnotationListener {
 
-    public function __construct(AnnotationReader $reader, $event);
+    public function __construct(Reader $reader, $event);
     
     public function manages();
 

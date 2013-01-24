@@ -1,7 +1,7 @@
 <?php
 namespace CobaiaAnnotation\EventListener;
 
-use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\Reader;
 use ReflectionClass;
 use ReflectionMethod;
 use App;
@@ -12,7 +12,7 @@ abstract class BaseListener {
 
     protected $event;
 
-    public function __construct(AnnotationReader $reader, $event) {
+    public function __construct(Reader $reader, $event) {
         $this->reader = $reader;
         $this->event = $event;
     }
