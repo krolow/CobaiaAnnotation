@@ -78,7 +78,7 @@ App::uses('AppController', 'Controller');
 use CobaiaAnnotation\Configuration\Controller\ViewHandler;
 
 /**
- * @ViewHandler(template="ajax")
+ * @ViewHandler(layout="ajax")
  */
 class ContentsController extends AppController {
    
