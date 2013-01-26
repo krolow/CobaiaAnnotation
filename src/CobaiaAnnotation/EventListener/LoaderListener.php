@@ -6,27 +6,27 @@ use CobaiaAnnotation\EventListener\BaseListener;
 use ClassRegistry;
 use ReflectionParameter;
 
-class LoadListener extends BaseListener implements AnnotationListener {
+class LoaderListener extends BaseListener implements AnnotationListener {
 
     public function manages() {
         $classReflection = $this->getReflectionClass($this->getControllerName());
         $modelAnnotation = $this->reader->getClassAnnotation(
             $classReflection,
-            'CobaiaAnnotation\\Configuration\\Controller\\Load\\Model'
+            'CobaiaAnnotation\\Configuration\\Controller\\Loader\\ModelLoader'
         );
 
         $this->handleModelAnnotation($modelAnnotation);
 
         $helperAnnotation = $this->reader->getClassAnnotation(
             $classReflection,
-            'CobaiaAnnotation\\Configuration\\Controller\\Load\\Helper'
+            'CobaiaAnnotation\\Configuration\\Controller\\Loader\\HelperLoader'
         );
 
         $this->handleHelperAnnotation($helperAnnotation);
 
         $componentAnnotation = $this->reader->getClassAnnotation(
             $classReflection,
-            'CobaiaAnnotation\\Configuration\\Controller\\Load\\Component'
+            'CobaiaAnnotation\\Configuration\\Controller\\Loader\\ComponentLoader'
         );
 
         $this->handleComponentAnnotation($componentAnnotation);
@@ -45,7 +45,13 @@ class LoadListener extends BaseListener implements AnnotationListener {
     }
 
     protected function handleHelperAnnotation($annotation) {
-        $this->event->subject()->helpers = $this->handleAnnotation($annotation, 'helpers');
+        $value = $this->handleAnnotation($annotation, 'helpers');
+
+        if (!$value) {
+            return;
+        }
+
+        $this->event->subject()->helpers = $value;
     }
 
     protected function handleComponentAnnotation($annotation) {
@@ -61,7 +67,7 @@ class LoadListener extends BaseListener implements AnnotationListener {
 
     protected function handleAnnotation($annotation, $name) {
         if (!is_object($annotation) || $annotation->{$name} == null) {
-            return;
+            return false;
         }
 
         $value = $annotation->{$name};
@@ -70,7 +76,7 @@ class LoadListener extends BaseListener implements AnnotationListener {
             $value = array($value);
         }
 
-        return $value;
+        return count($value) > 0 ? $value : false;
     }
 
     protected function getControllerName() {

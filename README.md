@@ -102,20 +102,20 @@ ViewHandler will take care of your view, forget about <code>$this->layout</code>
 
 It makes also inheritance so if you define one layout or view in the class DocBlock, the actions will inherit the value.
 
-### @Model, @Component, @Helper
+### @ModelLoader, @ComponentLoader, @HelperLoader
 
 ```php
 <?php
 App::uses('AppController', 'Controller');
 
-use CobaiaAnnotation\Configuration\Controller\Load\Model;
-use CobaiaAnnotation\Configuration\Controller\Load\Component;
-use CobaiaAnnotation\Configuration\Controller\Load\Helper;
+use CobaiaAnnotation\Configuration\Controller\Loader\ModelLoader;
+use CobaiaAnnotation\Configuration\Controller\Loader\ComponentLoader;
+use CobaiaAnnotation\Configuration\Controller\Loader\HelperLoader;
 
 /**
- * @Model({"Content", "Fake"})
- * @Component({"Session", "RequestHandler"})
- * @Helper({"Text", "Time", "Number"})
+ * @ModelLoader({"Content", "Fake"})
+ * @ComponentLoader({"Session", "RequestHandler"})
+ * @HelperLoader({"Text", "Time", "Number"})
  */
 class ContentsController extends AppController {
    

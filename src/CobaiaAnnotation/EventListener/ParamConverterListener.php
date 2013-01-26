@@ -5,7 +5,6 @@ use CobaiaAnnotation\EventListener\AnnotationListener;
 use CobaiaAnnotation\EventListener\BaseListener;
 use ClassRegistry;
 use ReflectionParameter;
-use Inflector;
 
 class ParamConverterListener extends BaseListener implements AnnotationListener {
 
@@ -30,22 +29,22 @@ class ParamConverterListener extends BaseListener implements AnnotationListener 
             }
             $index++;
         }
-        $params = $this->event->data['request']->params;
+
+        $params = $this->event->subject()->request->params;
         $data = ClassRegistry::init($annotation->class)->{$annotation->method}(null, $params['pass'][$index]);
         $params['pass'][$index] = $data;
-        $this->event->data['request']->addParams($params);
+
+        $this->event->subject()->request->addParams($params);
     }
 
     protected function getControllerName($event = null) {
         $event = $event ?: $this->event;
-        return Inflector::camelize(
-            $event->data['request']->params['controller']
-        ) . 'Controller';
+        return get_class($event->subject());
     }
 
     protected function getActionName($event = null) {
         $event = $event ?: $this->event;
-        return $event->data['request']->params['action'];
+        return $event->subject()->action;
     }
 
 }

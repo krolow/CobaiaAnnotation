@@ -14,10 +14,6 @@ class ViewHandlerListener extends BaseListener implements AnnotationListener {
             'CobaiaAnnotation\\Configuration\\Controller\\ViewHandler'
         );
 
-        if (!$annotation) {
-            return;
-        }
-
         $this->handleAnnotation($annotation);
 
         $methodReflection =  $this->getReflectionMethod(
@@ -41,6 +37,8 @@ class ViewHandlerListener extends BaseListener implements AnnotationListener {
         if (is_object($annotation) && $annotation->view !== null) {
             $this->event->subject()->view = $annotation->view; 
         }
+
+        return false;
     }
 
     protected function getControllerName() {

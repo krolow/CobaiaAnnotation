@@ -10,6 +10,8 @@ class ViewHandler {
 
     public $layout;
 
+    public $variables;
+
     /**
      * Getter for view
      *
@@ -55,6 +57,31 @@ class ViewHandler {
         $this->layout = $layout;
         return $this;
     }
+
+    /**
+     * Getter for variables
+     *
+     * @return mixed
+     */
+    public function getVariables()
+    {
+        return $this->variables;
+    }
+    
+    /**
+     * Setter for variables
+     *
+     * @param mixed $variables Value to set
+    
+     * @return self
+     */
+    public function setVariables($variables)
+    {
+        $this->variables = $variables;
+        return $this;
+    }
+
+
     
     
 }
