@@ -11,14 +11,15 @@ AnnotationRegistry::registerAutoloadNamespace(
 );
 
 EventEmitter::addEvent(
-    'Dispatcher.before',
+    'Controller.initialize',
     'CobaiaAnnotation\\EventListener\\ParamConverterListener'
 );
 EventEmitter::addEvent(
-    'Controller.initialize',
+    'Controller.beforeRender',
     'CobaiaAnnotation\\EventListener\\ViewHandlerListener'
 );
+
 EventEmitter::addEvent(
     'Controller.initialize',
-    'CobaiaAnnotation\\EventListener\\LoadListener'
+    'CobaiaAnnotation\\EventListener\\LoaderListener'
 );

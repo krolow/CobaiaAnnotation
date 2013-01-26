@@ -21,25 +21,21 @@ class AnnotationDispatcher extends DispatcherFilter {
     }
 
     public function beforeDispatch($event) {
-        $self = $this;
-
-        $self->broadcast('Dispatcher.before', $event);
-
-        CakeEventManager::instance()->attach(
-            function ($event) use ($self) {
-                $self->broadcast('Controller.initialize', $event);
-            }, 
-            'Controller.initialize'
-        );
+        foreach (EventEmitter::getEventNames() as $eventName) {
+            foreach (EventEmitter::getEvents($eventName) as $eventClass) {
+                $this->attachEvent($eventName, $eventClass, $this->annotationReader);
+            }
+        }
     }
 
-    public function broadcast($eventName, $event) {
-        $events = EventEmitter::getEvents($eventName);
-
-        foreach ($events as $eventClass) {
-            $handler = new $eventClass($this->annotationReader, $event);
-            $handler->manages();
-        }
+    protected function attachEvent($eventName, $eventClass, $annotationReader) {
+        CakeEventManager::instance()->attach(
+            function ($event) use ($eventClass, $annotationReader) {
+                $eventHandler = new $eventClass($annotationReader, $event);
+                $eventHandler->manages();
+            }, 
+            $eventName
+        );        
     }
 
 }
