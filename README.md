@@ -69,6 +69,14 @@ class ContentsController extends AppController {
 
 ParamConverter will automatically converts the action paramter to data that is in the database.
 
+So for example, using param coverter:
+call: /contents/view/20
+
+It would be the same as
+```php
+$content = $this->Content->read(null, $content);
+```
+
 ### @ViewHandler
 
 ```php
